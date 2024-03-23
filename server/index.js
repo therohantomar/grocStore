@@ -3,8 +3,8 @@ import { getProducts } from "./Controllers/getProducts.mjs";
 import { getUser } from "./Controllers/getUser.mjs";
 import { connection } from "./Services/connection.mjs";
 
-const client = await connection();
-console.log(client.isConnected()); // true
+connection();
+
 const app = express();
 
 app.get("/products", getProducts);
