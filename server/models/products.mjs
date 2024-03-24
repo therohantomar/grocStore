@@ -6,10 +6,6 @@ const Schema = mongoose.Schema;
 const productSchema = new Schema({
   p_id: {
     type: String,
-    default: function () {
-      // Generating auto-incremented ID using Mongoose built-in _id
-      return this._id.toHexString();
-    },
     unique: true,
   },
   p_name: {
@@ -30,5 +26,5 @@ const productSchema = new Schema({
   },
 });
 
-const Product = mongoose.model("Products", productSchema);
+const Product = mongoose.model("product", productSchema);
 export default Product;
