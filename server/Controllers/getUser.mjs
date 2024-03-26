@@ -1,12 +1,11 @@
-import Product from "../models/products.mjs";
+import products from "../models/products.mjs";
 import { connection } from "../Services/connection.mjs";
-const client = connection();
-export const getUser = async (req, res) => {
-  const id = req.params.id;
 
+export const getUser = async (req, res) => {
   connection()
     .then(async () => {
-      await Product.find()
+      await products
+        .find()
         .maxTimeMS(300000) // Set timeout to 30 seconds
         .then((products) => {
           console.log("All products:", products);

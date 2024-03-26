@@ -1,18 +1,19 @@
-import Product from "../models/products.mjs";
+import products from "../models/products.mjs";
 import { connection } from "../Services/connection.mjs";
 
 export const getProducts = async (req, res) => {
+  try {
+    // Establish the database connection
+    await connection();
 
-  connection()
-    .then(async () => {
-       await Product.find()
-        .maxTimeMS(300000) // Set timeout to 30 seconds
-        .then((products) => {
-          res.json({products})
-        })
-        .catch((error) => {
-          console.error("Error finding products:", error);
-        });
-    })
-    .catch(() => console.error("connection denied!"));
+    // Retrieve products from the database
+    const product = await products.find();
+
+    // Send the products as a JSON response
+    res.json(product);
+  } catch (error) {
+    console.error("Error getting products:", error);
+    // Send an error response if something went wrong
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
 };
