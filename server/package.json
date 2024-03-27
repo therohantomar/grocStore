@@ -17,11 +17,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
-    "jsonwebtoken": "link:jsonwebtoken",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
     "mongoose": "^8.2.3",
-    "nanoid": "^5.0.6",
-    "shortid": "^2.2.16"
+    "nanoid": "^5.0.6"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
