@@ -1,7 +1,7 @@
 import users from "../models/users.mjs";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import connection from "../Services/connection.mjs";
+import { connection } from "../Services/connection.mjs";
 import { config } from "dotenv";
 config();
 
