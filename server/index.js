@@ -6,9 +6,9 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { createUser } from "./Controllers/createUser.mjs";
 import { loginUser } from "./Controllers/loginUser.mjs";
+import { forgetPassword } from "./Controllers/forgetPassword.mjs";
 
 connection();
-
 const app = express();
 app.use(
   cors({
@@ -22,6 +22,7 @@ app.get("/products", getProducts);
 app.get("/users/:id", getUser);
 app.post("/users", createUser);
 app.post("/users/login", loginUser);
+app.post("/users/forgetpassword", forgetPassword);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
