@@ -30,10 +30,7 @@ const userSchema = new Schema({
       Authtoken: null,
       RefreshToken: null,
       LoginToken: null,
-    },
-    reauthToken: {
-      type: String,
-      default: null,
+      reauthToken: null,
     },
   },
 });
