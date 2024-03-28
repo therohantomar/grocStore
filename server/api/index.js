@@ -1,12 +1,12 @@
 import express from "express";
-import { getProducts } from "./Controllers/getProducts.mjs";
-import { getUser } from "./Controllers/getUser.mjs";
-import { connection } from "./Services/connection.mjs";
+import { getProducts } from "../Controllers/getProducts.mjs";
+import { getUser } from "../Controllers/getProducts.mjs";
+import { connection } from "../Services/connection.mjs";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { createUser } from "./Controllers/createUser.mjs";
-import { loginUser } from "./Controllers/loginUser.mjs";
-import { forgetPassword } from "./Controllers/forgetPassword.mjs";
+import { createUser } from "../Controllers/getProducts.mjs";
+import { loginUser } from "../Controllers/getProducts.mjs";
+import { forgetPassword } from "../Controllers/getProducts.mjs";
 
 connection();
 const app = express();
