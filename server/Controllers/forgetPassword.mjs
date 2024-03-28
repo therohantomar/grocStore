@@ -52,7 +52,9 @@ export const forgetPassword = async (req, res) => {
     await transporter.sendMail(mailOptions);
     // Update the re-authentication token for the user
     await users.findByIdAndUpdate(user._id, {
-      reauthToken,
+      tokens: {
+        reauthToken,
+      },
     });
 
     // Send a success response
