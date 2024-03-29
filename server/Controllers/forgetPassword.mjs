@@ -5,17 +5,7 @@ import { config } from "dotenv";
 import nodemailer from "nodemailer";
 config();
 
-// Create a transporter for Mailtrap
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.GMAIL_USERNAME,
-    pass: process.env.GMAIL_PASSWORD,
-  },
-});
+// Send a re-authentication link to the user's email address
 
 export const forgetPassword = async (req, res) => {
   const { email } = req.body;
@@ -23,6 +13,16 @@ export const forgetPassword = async (req, res) => {
     // Establish the database connection
     await connection();
 
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.GMAIL_USERNAME,
+        pass: process.env.GMAIL_PASSWORD,
+      },
+    });
     // Send a re-authentication link to the user's email address
 
     // Find the user with the given email
@@ -41,12 +41,12 @@ export const forgetPassword = async (req, res) => {
         expiresIn: "1h",
       }
     );
-    const link = `http://localhost:3000/reauthenticate?userid=${user._id}&reauthToken=${user.reauthToken}`;
+    // const link = `http://localhost:3000/reauthenticate?userid=${user._id}&reauthToken=${user.reauthToken}`;
     const mailOptions = {
       from: process.env.GMAIL_USERNAME,
       to: email,
       subject: "Reset password",
-      text: `Please click on the following link to reset your password:\n${link}`,
+      text: `Please click on the following link to reset your password:`,
     };
 
     await transporter.sendMail(mailOptions);
