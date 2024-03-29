@@ -18,7 +18,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/products", (req, res) => {
+app.get("/", (req, res) => {
   res.json("hello");
 });
 // app.get("/users/:id", getUser);
