@@ -15,10 +15,12 @@ const Home = () => {
   if (Products.length === 0) return <h1>No products found</h1>;
 
   return (
-    <section className="flex flex-wrap gap-4 ">
-      {Products.map((product) => (
-        <ProductCard key={product.p_id} product={product} />
-      ))}
+    <section className="flex flex-col gap-8 ">
+      <div className="flex flex-wrap items-center justify-start w-11/12 gap-6 mx-auto ">
+        {Products.map((product) => (
+          <ProductCard key={product.p_id} product={product} />
+        ))}
+      </div>
     </section>
   );
 };
