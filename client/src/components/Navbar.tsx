@@ -12,7 +12,7 @@ const Nav = () => {
         <h1 className="text-xl font-semibold text-gray-900 transition-colors duration-200 hover:text-indigo-600">
           Groc<span className="text-pink-600">Store</span>
         </h1>
-        <ul className="hidden lg:flex items-center gap-8 mx-6">
+        <ul className="hidden lg:flex items-center gap-8 mx-4">
           <li>
             <Link
               to="/"
