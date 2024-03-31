@@ -17,7 +17,7 @@ const Home = () => {
         <div className="flex gap-4 items-center justify-center flex-wrap w-11/12 ">
           {Array(20)
             .fill(0)
-            .map((value, index) => (
+            .map((index) => (
               <ProductShimmer key={index} />
             ))}
         </div>
