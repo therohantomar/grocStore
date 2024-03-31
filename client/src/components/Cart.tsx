@@ -36,7 +36,7 @@ const Cart = (): JSX.Element => {
                 <img
                   src={product.p_image}
                   alt={product.p_name}
-                  className="  w-full lg:w-44 h-40 border-2  px-2 rounded-md"
+                  className="  w-full lg:w-44  h-40 border-2  px-6 lg:px-4 rounded-md"
                 />
               )}
             <div className="flex flex-col border-2 p-4 w-full gap-2">
