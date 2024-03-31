@@ -5,6 +5,8 @@ import Home from "./components/Home.tsx";
 import { RouterProvider } from "react-router-dom";
 import Login from "./components/Login.tsx";
 import Cart from "./components/Cart.tsx";
+import { store } from "./utils/store/store.ts";
+import {Provider} from "react-redux"
 
 const router = createBrowserRouter([
   {
@@ -34,7 +36,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className="App">
+      <Provider store={store}>
       <RouterProvider router={router} />
+      </Provider>
     </div>
   );
 }
