@@ -5,6 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fontsource-variable/roboto-mono':
+    specifier: ^5.0.18
+    version: 5.0.18
+  '@fontsource/pitagon-sans':
+    specifier: ^5.0.1
+    version: 5.0.1
   '@reduxjs/toolkit':
     specifier: ^2.2.2
     version: 2.2.2(react-redux@9.1.0)(react@18.2.0)
@@ -548,6 +554,14 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fontsource-variable/roboto-mono@5.0.18:
+    resolution: {integrity: sha512-AIqr9HYQDqiJjGcs/fHedGc0ZGfEGdixm87O9viAQ4PXfiLEelpCnE2jlviJaYcGi3UHxe9+Nn3SalcHhKFSjw==}
+    dev: false
+
+  /@fontsource/pitagon-sans@5.0.1:
+    resolution: {integrity: sha512-FBrnm+sdCcu+op1nEfB89TSFzm93MeuUPL/ZfQIJh8qDA/dDuWUb6iQiamkCni40Si6rW6ild4gi4E/NebTImA==}
+    dev: false
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
