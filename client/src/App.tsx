@@ -6,7 +6,7 @@ import { RouterProvider } from "react-router-dom";
 import Login from "./components/Login.tsx";
 import Cart from "./components/Cart.tsx";
 import { store } from "./utils/store/store.ts";
-import {Provider} from "react-redux"
+import { Provider } from "react-redux";
 import About from "./components/About.tsx";
 import Contact from "./components/Contact.tsx";
 
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         errorElement: <div>Page Not Found</div>,
       },
       {
-        path: "conatct",
+        path: "contact",
         element: <Contact />,
         errorElement: <div>Page Not Found</div>,
       },
@@ -49,7 +49,7 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
       </Provider>
     </div>
   );
