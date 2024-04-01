@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "pitagon-sans-400";
+  src: url("/node_modules/@fontsource/pitagon-sans/files/pitagon-sans-latin-400-normal.woff");
+}
+@font-face {
+  font-family: "roboto";
+  src: url("/node_modules/@fontsource-variable/roboto-mono/files/roboto-mono-latin-wght-normal.woff2");
+}

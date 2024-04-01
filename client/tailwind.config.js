@@ -2,7 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        "pitagon-400": ["pitagon-sans-400"],
+        roboto: ["roboto"],
+      },
+    },
   },
   plugins: [],
 };
