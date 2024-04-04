@@ -19,7 +19,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.send("<h1>Hello this is grocStore api</h1>");
+  res.send(`
+    <style>
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-top: 40px;
+      }
+    </style>
+    <h1>👋 Welcome to grocStore API 🛍️</h1>
+  `);
 });
 app.get("/users/:id", getUser);
 app.get("/products", getProducts);
