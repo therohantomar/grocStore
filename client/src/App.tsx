@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./components/Home.tsx";
 import { RouterProvider } from "react-router-dom";
 import Login from "./components/Login.tsx";
+import Signup from "./components/Signup.tsx";
 import Cart from "./components/Cart.tsx";
 import { store } from "./utils/store/store.ts";
 import { Provider } from "react-redux";
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+        errorElement: <div>Page Not Found</div>,
+      },
+      {
+        path: "signup",
+        element: <Signup />,
         errorElement: <div>Page Not Found</div>,
       },
     ],
