@@ -1,17 +1,20 @@
 function useCreateuser() {
-  async function createUser({
-    userName,
-    userEmail,
-    userAddress,
-    password,
-  }: {
-    userName: string;
-    userEmail: string;
-    userAddress: string;
-    password: string;
-  }) {
+  async function createUser(
+    {
+      userName,
+      userEmail,
+      userAddress,
+      password,
+    }: {
+      userName: string;
+      userEmail: string;
+      userAddress: string;
+      password: string;
+    },
+    setStatus: React.Dispatch<React.SetStateAction<number>>
+  ) {
     try {
-      const res = await fetch("https://groc-store.vercel.app/users", {
+      await fetch("https://groc-store.vercel.app/users", {
         method: "POST",
         body: JSON.stringify({
           userName,
@@ -21,11 +24,12 @@ function useCreateuser() {
         }),
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
       });
 
-      const data = await res.json();
-      console.log(data);
+      setStatus(201);
 
       return {
         success: true,
