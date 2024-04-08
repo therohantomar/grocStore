@@ -1,16 +1,32 @@
 import { useState } from "react";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import useCreateuser from "../utils/hooks/useCreateuser";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [user, setUser] = useState({
+    userName: "",
+    userEmail: "",
+    password: "",
+    userAddress: "",
+  });
+
+  const createUser = useCreateuser();
+
   return (
     <div className="flex items-center justify-center w-full h-screen bg-gray-200 opacity-70">
-      <div className="w-1/3 px-8 py-6 mx-auto bg-white shadow-xl rounded-xl">
+      <div className="w-full px-8 py-6 mx-auto bg-white shadow-xl md:w-1/3 rounded-xl">
         <h4 className="pb-2 text-xl font-semibold text-center capitalize">
           Sign Up
         </h4>
-        <form className="space-y-3">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            createUser(user);
+          }}
+          className="space-y-3"
+        >
           <div>
             <label
               htmlFor="userName"
@@ -23,6 +39,8 @@ const Signup = () => {
                 type="text"
                 name="userName"
                 id="userName"
+                value={user.userName}
+                onChange={(e) => setUser({ ...user, userName: e.target.value })}
                 placeholder="Enter Your Name"
                 className="w-full px-2 py-1 mt-1 border border-gray-400 rounded-md"
                 required
@@ -41,8 +59,11 @@ const Signup = () => {
                 type="email"
                 name="userEmail"
                 id="userEmail"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                 placeholder="Enter Your Email"
+                value={user.userEmail}
+                onChange={(e) =>
+                  setUser({ ...user, userEmail: e.target.value })
+                }
                 className="w-full px-2 py-1 mt-1 border border-gray-400 rounded-md"
                 required
               />
@@ -59,6 +80,10 @@ const Signup = () => {
               <textarea
                 name="userAddress"
                 id="userAddress"
+                value={user.userAddress}
+                onChange={(e) =>
+                  setUser({ ...user, userAddress: e.target.value })
+                }
                 placeholder="Enter Your Address"
                 className="w-full px-2 py-1 mt-1 border border-gray-400 rounded-md"
                 rows={3}
@@ -79,6 +104,10 @@ const Signup = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
+                  value={user.password}
+                  onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })
+                  }
                   placeholder="Enter Your Password"
                   className="w-full px-2 py-1 mt-1 border border-gray-400 rounded-md"
                   required
