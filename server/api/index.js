@@ -10,6 +10,30 @@ import { loginUser } from "../Controllers/loginUser.mjs";
 import { forgetPassword } from "../Controllers/forgetPassword.mjs";
 
 const app = express();
+// CORS middleware
+const allowCrossDomain = (req, res, next) => {
+  res.header(
+    `Access-Control-Allow-Origin`,
+    `https://groc-store-5d1c.vercel.app`,
+    "http://localhost:3000"
+  );
+  res.header(`Access-Control-Allow-Methods`, `GET,PUT,POST,DELETE`);
+  res.header(`Access-Control-Allow-Headers`, `Content-Type`);
+  next();
+};
+
+// CORS middleware
+
+app.configure(() => {
+  app.use(express.bodyParser());
+  app.use(express.cookieParser());
+  app.use(express.session({ secret: `cool beans` }));
+  app.use(express.methodOverride());
+  // CORS middleware
+  app.use(allowCrossDomain);
+  app.use(app.router);
+  app.use(express.static(`public`));
+});
 app.use(
   cors({
     origin: [
