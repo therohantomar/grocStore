@@ -14,16 +14,6 @@ const app = express();
 
 // CORS middleware
 
-app.configure(() => {
-  app.use(express.bodyParser());
-  app.use(express.cookieParser());
-  app.use(express.session({ secret: `cool beans` }));
-  app.use(express.methodOverride());
-  // CORS middleware
-  app.use(allowCrossDomain);
-  app.use(app.router);
-  app.use(express.static(`public`));
-});
 app.use(
   cors({
     origin: "*",
@@ -31,6 +21,7 @@ app.use(
   })
 );
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
