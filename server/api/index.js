@@ -12,7 +12,12 @@ import { forgetPassword } from "../Controllers/forgetPassword.mjs";
 const app = express();
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "http://localhost:5173/",
+      "https://groc-store-5d1c.vercel.app",
+    ],
   })
 );
 app.use(bodyParser.json());

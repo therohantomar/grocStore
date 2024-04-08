@@ -6,7 +6,7 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="flex items-center justify-center w-full h-screen bg-gray-200 opacity-70">
-      <div className="w-1/3 px-8 py-6 mx-auto bg-white shadow-xl rounded-xl">
+      <div className="w-full px-8 py-6 mx-auto bg-white shadow-xl md:w-1/3 rounded-xl">
         <h4 className="pb-2 text-xl font-semibold text-center capitalize">
           Log In
         </h4>
