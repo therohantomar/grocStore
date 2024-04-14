@@ -1,4 +1,12 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+
 function useCreateuser() {
+  const notify = () => toast("User created successfully");
+  const errornotify = () => toast.error("user Not Created!");
+  const Navigate = useNavigate();
+
   async function createUser(
     {
       userName,
@@ -10,11 +18,10 @@ function useCreateuser() {
       userEmail: string;
       userAddress: string;
       password: string;
-    },
-    setStatus: React.Dispatch<React.SetStateAction<number>>
+    }
   ) {
     try {
-      await fetch("https://groc-store.vercel.app/users", {
+      const response = await fetch("https://groc-store.vercel.app/users", {
         method: "POST",
         body: JSON.stringify({
           userName,
@@ -29,13 +36,17 @@ function useCreateuser() {
         },
       });
 
-      setStatus(201);
+      const res = await response.json()
+    
+      if (res.status !== 400) {
+        notify();
+        Navigate("/login");
+      }else{
+       errornotify()
+      }
 
-      return {
-        success: true,
-        message: "User created successfully",
-        data: { userName, userEmail, userAddress, password },
-      };
+      
+
     } catch (error) {
       return error;
     }
