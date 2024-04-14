@@ -2,12 +2,13 @@ import { useState } from "react";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import useCreateuser from "../utils/hooks/useCreateuser";
-import { useNavigate } from "react-router-dom";
+
+import { ToastContainer } from "react-toastify";
 
 const Signup = () => {
-  const Navigate = useNavigate();
+  
   const [showPassword, setShowPassword] = useState(false);
-  const [status, setStatus] = useState(100);
+  
   const [user, setUser] = useState({
     userName: "",
     userEmail: "",
@@ -17,17 +18,18 @@ const Signup = () => {
 
   const createUser = useCreateuser();
 
-  if (status == 201) Navigate("/login");
+
   return (
     <div className="flex items-center justify-center w-full h-screen bg-gray-200 opacity-70">
       <div className="w-full px-8 py-6 mx-auto bg-white shadow-xl md:w-1/3 rounded-xl">
+        <ToastContainer className={"z-50"}/>
         <h4 className="pb-2 text-xl font-semibold text-center capitalize">
           Sign Up
         </h4>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            createUser(user, setStatus);
+            createUser(user);
           }}
           className="space-y-3"
         >
