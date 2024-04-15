@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import useCreateuser from "../utils/hooks/useCreateuser";
-
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const Signup = () => {
+  const [isLoading,setisLoading]=useState(false)
+    const notify = () => toast("User created successfully");
+  const errornotify = () => toast.error("user Not Created!");
+  const Navigate = useNavigate();
   
   const [showPassword, setShowPassword] = useState(false);
   
@@ -16,7 +19,55 @@ const Signup = () => {
     userAddress: "",
   });
 
-  const createUser = useCreateuser();
+
+  async function createUser(
+    {
+      userName,
+      userEmail,
+      userAddress,
+      password,
+    }: {
+      userName: string;
+      userEmail: string;
+      userAddress: string;
+      password: string;
+    }
+  ) {
+    try {
+      setisLoading(true)
+      const response = await fetch("https://groc-store.vercel.app/users", {
+        method: "POST",
+        body: JSON.stringify({
+          userName,
+          userEmail,
+          userAddress,
+          password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          'Access-Control-Allow-Origin':"https://groc-store.vercel.app/users"
+        },
+      });
+
+      const res = await response.json()
+      console.log(res)
+    
+      if (res.status === 201) {
+        setisLoading(false)
+        notify();
+        Navigate("/login");
+      }else{
+       errornotify()
+      }
+
+      
+
+    } catch (error) {
+      return error;
+    }
+  }
+
 
 
   return (
@@ -143,12 +194,17 @@ const Signup = () => {
             </div>
           </div>
           <div>
-            <button
+            {isLoading?<button
+            
+            className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white capitalize bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            
+            
+            >Loading</button>:<button
               type="submit"
               className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white capitalize bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               create user
-            </button>
+            </button>}
           </div>
           <h4 className="text-base text-center text-black">
             Already have an account?&nbsp;
