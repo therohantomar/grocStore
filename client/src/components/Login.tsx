@@ -1,18 +1,59 @@
 import { useState } from "react";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const successnotify = () => toast("Login successfully");
+  const errornotify = () => toast.error("Invalid credentials");
+  const errorusernotify = () => toast.error("user does not exist");
+  const errorwentnotify = () => toast.error("something Went Wrong");
+
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
+  async function handleLogin() {
+    try {
+      setIsSubmitted(true);
+      const response = await fetch(
+        "https://groc-store.vercel.app/users/login",
+        {
+          method: "POST",
+          body: JSON.stringify(user),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "http://localhost:5173",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH",
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      if (data.status === 200) {
+        localStorage.setItem("Authtoken", data.Authtoken);
+        localStorage.setItem("Refreshtoken", data.RefreshToken);
+        successnotify();
+        window.location.href = "/";
+      } else if (data.error === "Invalid credentials") {
+        errornotify();
+      } else {
+        errorusernotify();
+      }
+    } catch (error) {
+      errorwentnotify();
+    }
+  }
+
   const handleShowPassword = () => setShowPassword(!showPassword);
-  console.log(user);
+
   return (
     <div className="flex items-center justify-center w-full h-screen bg-gray-200 opacity-70">
+      <ToastContainer position="bottom-right" />
       <div className="w-full px-8 py-6 mx-auto bg-white shadow-xl md:w-1/3 rounded-xl">
         <h4 className="pb-2 text-xl font-semibold text-center capitalize">
           Log In
@@ -20,6 +61,7 @@ const Login = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            handleLogin();
           }}
           className="space-y-3"
         >

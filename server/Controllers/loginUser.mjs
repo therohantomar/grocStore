@@ -16,13 +16,13 @@ export const loginUser = async (req, res) => {
 
     // Check if the user is valid
     if (!user) {
-      return res.status(400).json({ error: "Invalid email" });
+      return res.status(400).json({ status: 400, error: "Invalid email" });
     }
 
     // Check if the password is correct
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid password" });
+      return res.status(401).json({ status: 401, error: "Invalid password" });
     }
 
     // Create a new authentication token
