@@ -12,9 +12,7 @@ import { forgetPassword } from "../Controllers/forgetPassword.mjs";
 const app = express();
 app.use(
   cors({
-    origin: (origin, callback) => {
-      callback(null, true);
-    },
+    origin: "*",
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
