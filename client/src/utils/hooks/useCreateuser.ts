@@ -47,6 +47,7 @@ function useCreateuser(
         setUser({ userAddress: "", userName: "", userEmail: "", password: "" });
         setIsSubmitted(false);
         notify();
+        Navigate("/login");
       } else if (res.status === 400) {
         setUser({ userAddress: "", userName: "", userEmail: "", password: "" });
         errorusernotify();
