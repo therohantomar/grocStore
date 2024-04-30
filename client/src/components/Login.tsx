@@ -2,14 +2,21 @@ import { useState } from "react";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../utils/store/store";
+import { addUser } from "../utils/store/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const successnotify = () => toast("Login successfully");
   const errornotify = () => toast.error("Invalid credentials");
   const errorusernotify = () => toast.error("user does not exist");
   const errorwentnotify = () => toast.error("something Went Wrong");
+
+  const Navigate = useNavigate();
 
   const [user, setUser] = useState({
     email: "",
@@ -33,19 +40,26 @@ const Login = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
+
       if (data.status === 200) {
+        dispatch(addUser(data.user));
         localStorage.setItem("Authtoken", data.Authtoken);
         localStorage.setItem("Refreshtoken", data.RefreshToken);
         successnotify();
-        window.location.href = "/";
-      } else if (data.error === "Invalid credentials") {
+        setIsSubmitted(false);
+        Navigate("/");
+
+        // window.location.href = "/";
+      } else if (data.status === 401) {
         errornotify();
+        setIsSubmitted(false);
       } else {
         errorusernotify();
+        setIsSubmitted(false);
       }
     } catch (error) {
       errorwentnotify();
+      setIsSubmitted(false);
     }
   }
 
@@ -122,12 +136,18 @@ const Login = () => {
             </div>
           </div>
           <div>
-            <button
-              type="submit"
-              className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white capitalize bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              log in
-            </button>
+            {isSubmitted ? (
+              <button className="flex justify-center w-full px-4 py-2 text-sm font-medium text-black capitalize bg-gray-400 border border-transparent rounded-md shadow-sm">
+                Submitting...{" "}
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white capitalize bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                log in
+              </button>
+            )}
           </div>
           <h4 className="text-base text-center text-black">
             Dont't have an account?&nbsp;

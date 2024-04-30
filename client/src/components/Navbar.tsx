@@ -3,9 +3,13 @@ import { IoMdCart } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
+import { useSelector } from "react-redux";
+import { RootState } from "../utils/store/store";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
+  const { baskets } = useSelector((state: RootState) => state.basket);
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-10 bg-white shadow-md font-pitagon-400">
       <div className="container flex items-center justify-between px-4 py-2 mx-auto">
@@ -50,7 +54,14 @@ const Nav = () => {
               to="/cart"
               className="transition-colors duration-200 text-md hover:text-indigo-600"
             >
-              <IoMdCart className="text-xl" />
+              <div className="relative inline-block">
+                <IoMdCart className="text-2xl" />
+                <span
+                  className={`absolute -top-2 -right-4 rounded-full bg-indigo-500 text-white text-xs font-semibold  px-2 py-1`}
+                >
+                  {baskets.length}
+                </span>
+              </div>
             </Link>
           </li>
         </ul>

@@ -50,9 +50,12 @@ export const loginUser = async (req, res) => {
     });
 
     // Send the authentication and refresh tokens as a JSON response
-    res
-      .status(200)
-      .json({ status: 200, Authtoken: authToken, RefreshToken: refreshToken });
+    res.status(200).json({
+      status: 200,
+      Authtoken: authToken,
+      RefreshToken: refreshToken,
+      user: user.userName,
+    });
   } catch (error) {
     // Send an error response if something went wrong
     res.status(500).json({ error: "Failed to login" });
