@@ -14,9 +14,14 @@ export const createUser = async (req, res) => {
   });
 
   try {
-    const savedUser = await user.save();
-    res.json({ status: 201, ...savedUser });
+    const existingUser = await User.findOne({ userEmail: req.body.userEmail });
+    if (existingUser) {
+      return res.status(400).json({ status: 400, error: "User exists" });
+    } else {
+      const savedUser = await user.save();
+      return res.status(200).json({ status: 200, ...savedUser });
+    }
   } catch (error) {
-    res.status(400).json({ status: 400, ...error.message });
+    res.status(400).json({ status: 401, ...error.message });
   }
 };
