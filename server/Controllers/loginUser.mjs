@@ -22,7 +22,7 @@ export const loginUser = async (req, res) => {
     // Check if the password is correct
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(400).json({ error: "Invalid password" });
+      return res.status(401).json({ error: "Invalid password" });
     }
 
     // Create a new authentication token
@@ -50,9 +50,10 @@ export const loginUser = async (req, res) => {
     });
 
     // Send the authentication and refresh tokens as a JSON response
-    res.json({ Authtoken: authToken, RefreshToken: refreshToken });
+    res
+      .status(200)
+      .json({ status: 200, Authtoken: authToken, RefreshToken: refreshToken });
   } catch (error) {
-    console.error("Error login user:", error);
     // Send an error response if something went wrong
     res.status(500).json({ error: "Failed to login" });
   }

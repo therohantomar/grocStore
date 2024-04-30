@@ -42,7 +42,7 @@ function useCreateuser(
       });
 
       const res = await response.json();
-      console.log(res);
+
       if (res.status === 200) {
         setUser({ userAddress: "", userName: "", userEmail: "", password: "" });
         setIsSubmitted(false);

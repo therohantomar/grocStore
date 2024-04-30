@@ -2,27 +2,41 @@ import { useState } from "react";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-const Signup = () => {
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleShowPassword = () => setShowPassword(!showPassword);
+  console.log(user);
   return (
     <div className="flex items-center justify-center w-full h-screen bg-gray-200 opacity-70">
       <div className="w-full px-8 py-6 mx-auto bg-white shadow-xl md:w-1/3 rounded-xl">
         <h4 className="pb-2 text-xl font-semibold text-center capitalize">
           Log In
         </h4>
-        <form className="space-y-3">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+          className="space-y-3"
+        >
           <div>
             <label
               htmlFor="userName"
               className="block text-sm font-medium text-gray-700"
             >
-              User Name
+              Email
             </label>
             <div className="">
               <input
-                type="text"
-                name="userName"
-                id="userName"
+                type="email"
+                name="email"
+                id="email"
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+                value={user.email}
                 placeholder="Enter Your Name"
                 className="w-full px-2 py-1 mt-1 border border-gray-400 rounded-md"
                 required
@@ -43,6 +57,10 @@ const Signup = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
+                  onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })
+                  }
+                  value={user.password}
                   placeholder="Enter Your Password"
                   className="w-full px-2 py-1 mt-1 border border-gray-400 rounded-md"
                   required
@@ -50,22 +68,12 @@ const Signup = () => {
                 <button
                   type="button"
                   className="focus:outline-none"
-                  onClick={() => {
-                    setShowPassword(!showPassword);
-                  }}
+                  onClick={handleShowPassword}
                 >
                   {showPassword ? (
-                    <BsFillEyeFill
-                      onClick={() => {
-                        setShowPassword(!showPassword);
-                      }}
-                      className="w-5 h-5"
-                    />
+                    <BsFillEyeFill className="w-5 h-5" />
                   ) : (
-                    <BsFillEyeSlashFill
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="w-5 h-5"
-                    />
+                    <BsFillEyeSlashFill className="w-5 h-5" />
                   )}
                 </button>
               </div>
@@ -91,4 +99,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
