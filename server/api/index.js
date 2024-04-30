@@ -10,13 +10,12 @@ import { loginUser } from "../Controllers/loginUser.mjs";
 import { forgetPassword } from "../Controllers/forgetPassword.mjs";
 
 const app = express();
-// CORS middleware
-
-// CORS middleware
-
 app.use(
   cors({
-    origin: "*",
+    origin: (origin, callback) => {
+      callback(null, true);
+    },
+    credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
 );
