@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../utils/store/store";
+import { useStripe } from "../utils/hooks/useStripe";
 import {
   ProductInBasket,
   removeProductFromBasket,
@@ -13,7 +14,8 @@ const Cart = (): JSX.Element => {
   const products: ProductInBasket[] = useSelector(
     (state: RootState) => state.basket.baskets
   );
-
+  const { user } = useSelector((state: RootState) => state.user);
+  const handlePayment=useStripe(products)
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-screen mt-8 text-center text-gray-600">
@@ -98,12 +100,21 @@ const Cart = (): JSX.Element => {
               .toFixed(2)}
           </span>
         </div>
-        <button
-          onClick={() => console.log("Checkout")}
-          className="px-4 py-2 mt-4 text-white bg-green-600 rounded-md"
-        >
+        {user === "" ? (
+          <Link to="/login">
+            <button className="px-4 py-2 mt-4 text-white bg-green-600 rounded-md">
+              Login to checkout
+            </button>
+          </Link>
+        ) : (
+          <button
+            onClick={() => {
+              if (user !== "") handlePayment();
+            }}
+            className="px-4 py-2 mt-4 text-white bg-green-600 rounded-md"
+          >
           Checkout
-        </button>
+        </button>)}
       </div>
     </div>
   );

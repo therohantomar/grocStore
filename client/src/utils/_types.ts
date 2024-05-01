@@ -11,6 +11,7 @@ export interface ProductType {
   p_image: string;
   p_price: number;
   quantity: number;
+  priceId:string;
   rating: number;
   reviews: number;
 }

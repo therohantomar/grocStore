@@ -10,6 +10,8 @@ import { store } from "./utils/store/store.ts";
 import { Provider } from "react-redux";
 import About from "./components/About.tsx";
 import Contact from "./components/Contact.tsx";
+import Success from "./components/Success.tsx";
+import { Error } from "./components/Error.tsx";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        errorElement: <div>Page Not Found</div>,
+      },
+      {
+        path: "success",
+        element: <Success />,
+        errorElement: <div>Page Not Found</div>,
+      },
+      {
+        path: "cancel",
+        element: <Error />,
         errorElement: <div>Page Not Found</div>,
       },
       {

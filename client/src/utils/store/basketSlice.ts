@@ -13,6 +13,7 @@ export interface ProductInBasket {
   p_image: string;
   p_price: number;
   quantity: number;
+  priceId:string;
 }
 
 export interface BasketState {

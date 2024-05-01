@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../utils/store/store";
 const Home = () => {
   const { user } = useSelector((state: RootState) => state.user);
-  console.log(user);
+
   const {
     loading,
     error,
