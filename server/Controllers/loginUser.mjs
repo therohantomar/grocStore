@@ -54,7 +54,7 @@ export const loginUser = async (req, res) => {
       status: 200,
       Authtoken: authToken,
       RefreshToken: refreshToken,
-      user: user.userName,
+      user: user,
     });
   } catch (error) {
     // Send an error response if something went wrong
