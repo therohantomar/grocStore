@@ -32,17 +32,20 @@ const Home = () => {
   return (
     <section className="flex flex-col gap-2 mt-14 lg:gap-8 ">
       <div className="flex items-center justify-center">
-        {user !== "" ? (
-          <h4 className="text-3xl font-semibold text-center text-gray-800">
-            Welcome,
-            <span className="text-blue-600"> {user} </span>
-            let's start shopping
+        {user.userName !== "" ? (
+          <h4
+            className="flex flex-wrap text-xl font-extrabold leading-none text-center text-gray-800 sm:text-xl md:text-2xl sm:tracking-tight md:tracking-tighter"
+            style={{ fontFamily: "Roboto, sans-serif" }}
+          >
+            <span className="block">Welcome,</span>
+            <span className="block text-blue-600">{user.userName}</span>
+            <span className="block">let's start shopping</span>
           </h4>
         ) : (
           ""
         )}
       </div>
-      <div className="flex flex-wrap items-center justify-center w-11/12 gap-4 mx-auto mt-10 lg:gap-6 ">
+      <div className="flex flex-wrap items-center justify-center w-11/12 gap-4 mx-auto mt-4 lg:gap-6 ">
         {Products.map((product) => (
           <ProductCard key={product.p_id} product={product} />
         ))}

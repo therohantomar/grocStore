@@ -42,7 +42,7 @@ const Login = () => {
       const data = await response.json();
 
       if (data.status === 200) {
-        dispatch(addUser(data.user));
+        dispatch(addUser({ ...data.user }));
         localStorage.setItem("Authtoken", data.Authtoken);
         localStorage.setItem("Refreshtoken", data.RefreshToken);
         successnotify();
