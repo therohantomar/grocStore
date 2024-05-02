@@ -30,7 +30,15 @@ export const reAuthenticate = async (req, res) => {
     // }
 
     // Send the user as a JSON response
-    res.status(200).json({ status: 200, user: foundUser });
+    res.status(200).json({
+      status: 200,
+      user: {
+        _id: foundUser._id,
+        userName: foundUser.userName,
+        userEmail: foundUser.userEmail,
+        userAddress: foundUser.userAddress,
+      },
+    });
   } catch (error) {
     if (error) {
       return res.status(401).json({ status: 401, error: "Invalid token" });
