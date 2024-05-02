@@ -54,7 +54,12 @@ export const loginUser = async (req, res) => {
       status: 200,
       Authtoken: authToken,
       RefreshToken: refreshToken,
-      user: user,
+      user: {
+        _id: user._id,
+        userName: user.userName,
+        userEmail: user.userEmail,
+        userAddress: user.userAddress,
+      },
     });
   } catch (error) {
     // Send an error response if something went wrong

@@ -8,7 +8,6 @@ import { getProducts } from "../Controllers/getProducts.mjs";
 import { createUser } from "../Controllers/createUser.mjs";
 import { loginUser } from "../Controllers/loginUser.mjs";
 import { forgetPassword } from "../Controllers/forgetPassword.mjs";
-import { reAuthenticate } from "../Controllers/reAuthenticate.mjs";
 
 const app = express();
 app.use(
@@ -38,7 +37,7 @@ app.get("/users/:id", getUser);
 app.get("/products", getProducts);
 app.post("/users", createUser);
 app.post("/users/login", loginUser);
-app.post("/users/authenticate", reAuthenticate);
+
 app.post("/users/forgetpassword", forgetPassword);
 const port = process.env.PORT;
 app.listen(port, () => {
