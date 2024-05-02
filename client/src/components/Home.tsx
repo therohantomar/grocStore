@@ -3,14 +3,16 @@ import { useEffect } from "react";
 import { ProductType } from "../utils/_types";
 import ProductCard from "./ProductCard";
 import { ProductShimmer } from "./productShimmer";
-import { useSelector } from "react-redux";
-import { RootState } from "../utils/store/store";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../utils/store/store";
+import { addUser } from "../utils/store/userSlice";
 const Home = () => {
   const { user } = useSelector((state: RootState) => state.user);
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const authtoken = localStorage.getItem("Authtoken");
   useEffect(() => {
-    console.log(authtoken);
     if (authtoken) {
       fetch(`https://groc-store.vercel.app/users/authenticate`, {
         method: "POST",
@@ -24,10 +26,10 @@ const Home = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          if (!data.valid) {
+          if (!data) {
             localStorage.removeItem("authtoken");
           }
-          console.log(data);
+          dispatch(addUser({ ...data.user }));
         })
         .catch((err) => console.log(err));
     }
@@ -61,7 +63,7 @@ const Home = () => {
       <div className="flex items-center justify-center">
         {user.userName !== "" ? (
           <h4
-            className="flex flex-wrap text-xl font-extrabold leading-none text-center text-gray-800 sm:text-xl md:text-2xl sm:tracking-tight md:tracking-tighter"
+            className="flex flex-wrap items-center justify-center text-xl font-extrabold leading-none text-center text-gray-800 sm:text-xl md:text-2xl sm:tracking-tight md:tracking-tighter"
             style={{ fontFamily: "Roboto, sans-serif" }}
           >
             <span className="block">Welcome,</span>

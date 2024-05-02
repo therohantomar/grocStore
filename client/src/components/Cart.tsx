@@ -15,7 +15,7 @@ const Cart = (): JSX.Element => {
     (state: RootState) => state.basket.baskets
   );
   const { user } = useSelector((state: RootState) => state.user);
-  const handlePayment=useStripe(products)
+  const handlePayment = useStripe(products);
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-screen mt-8 text-center text-gray-600">
@@ -100,7 +100,7 @@ const Cart = (): JSX.Element => {
               .toFixed(2)}
           </span>
         </div>
-        {user === "" ? (
+        {user.userName === "" ? (
           <Link to="/login">
             <button className="px-4 py-2 mt-4 text-white bg-green-600 rounded-md">
               Login to checkout
@@ -109,12 +109,13 @@ const Cart = (): JSX.Element => {
         ) : (
           <button
             onClick={() => {
-              if (user !== "") handlePayment();
+              if (user.userName !== "") handlePayment();
             }}
             className="px-4 py-2 mt-4 text-white bg-green-600 rounded-md"
           >
-          Checkout
-        </button>)}
+            Checkout
+          </button>
+        )}
       </div>
     </div>
   );
