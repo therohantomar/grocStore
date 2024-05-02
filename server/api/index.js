@@ -38,7 +38,7 @@ app.get("/users/:id", getUser);
 app.get("/products", getProducts);
 app.post("/users", createUser);
 app.post("/users/login", loginUser);
-app.post("user/authenticate", reAuthenticate);
+app.post("/users/authenticate", reAuthenticate);
 app.post("/users/forgetpassword", forgetPassword);
 const port = process.env.PORT;
 app.listen(port, () => {

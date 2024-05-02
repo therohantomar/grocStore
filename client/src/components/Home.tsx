@@ -1,4 +1,5 @@
 import { useGetProducts } from "../utils/hooks/useGetProducts";
+import { useEffect } from "react";
 import { ProductType } from "../utils/_types";
 import ProductCard from "./ProductCard";
 import { ProductShimmer } from "./productShimmer";
@@ -6,6 +7,31 @@ import { useSelector } from "react-redux";
 import { RootState } from "../utils/store/store";
 const Home = () => {
   const { user } = useSelector((state: RootState) => state.user);
+
+  const authtoken = localStorage.getItem("Authtoken");
+  useEffect(() => {
+    console.log(authtoken);
+    if (authtoken) {
+      fetch(`https://groc-store.vercel.app/users/authenticate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:5173",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH",
+        },
+        body: JSON.stringify({ authtoken }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.valid) {
+            localStorage.removeItem("authtoken");
+          }
+          console.log(data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
 
   const {
     loading,
@@ -26,6 +52,7 @@ const Home = () => {
         </div>
       </div>
     );
+
   if (error) return <h1>Error</h1>;
   if (Products.length === 0) return <h1>No products found</h1>;
 
