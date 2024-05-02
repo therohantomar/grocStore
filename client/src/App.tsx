@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import About from "./components/About.tsx";
 import Contact from "./components/Contact.tsx";
 import Success from "./components/Success.tsx";
-import { Error } from "./components/Error.tsx";
+import Error from "./components/Error.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,32 +30,32 @@ const router = createBrowserRouter([
         errorElement: <div>Page Not Found</div>,
       },
       {
-        path: "cancel",
+        path: "/cancel",
         element: <Error />,
         errorElement: <div>Page Not Found</div>,
       },
       {
-        path: "cart",
+        path: "/cart",
         element: <Cart />,
         errorElement: <div>Page Not Found</div>,
       },
       {
-        path: "about",
+        path: "/about",
         element: <About />,
         errorElement: <div>Page Not Found</div>,
       },
       {
-        path: "contact",
+        path: "/contact",
         element: <Contact />,
         errorElement: <div>Page Not Found</div>,
       },
       {
-        path: "login",
+        path: "/login",
         element: <Login />,
         errorElement: <div>Page Not Found</div>,
       },
       {
-        path: "signup",
+        path: "/signup",
         element: <Signup />,
         errorElement: <div>Page Not Found</div>,
       },
