@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../utils/store/store";
-import { useStripe } from "../utils/hooks/useStripe";
 import {
   ProductInBasket,
   removeProductFromBasket,
@@ -8,14 +7,20 @@ import {
   addProductToBasket,
 } from "../utils/store/basketSlice";
 import { Link } from "react-router-dom";
+import useGeoAddress from "../utils/hooks/useGeoAddress";
+import { GeoAddress } from "../utils/hooks/useGeoAddress";
+import { useStripe } from "../utils/hooks/useStripe";
 
 const Cart = (): JSX.Element => {
+  const { address }: { address:GeoAddress}  = useGeoAddress();
+
   const dispatch = useDispatch<AppDispatch>();
   const products: ProductInBasket[] = useSelector(
     (state: RootState) => state.basket.baskets
   );
-  const { user } = useSelector((state: RootState) => state.user);
   const handlePayment = useStripe(products);
+  const { user } = useSelector((state: RootState) => state.user);
+
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-screen mt-8 text-center text-gray-600">
@@ -32,6 +37,16 @@ const Cart = (): JSX.Element => {
       </div>
     );
   }
+
+  const handlePayments = () => {
+    if (address?.city?.toLowerCase() !== "mumbai") {
+      alert(
+        "Sorry we are not delivering outside Mumbai, kindly shop from Mumbai"
+      );
+      return;
+    }
+    handlePayment();
+  };
 
   return (
     <div className="flex flex-col w-full mt-20 md:flex-row md:justify-between">
@@ -100,7 +115,11 @@ const Cart = (): JSX.Element => {
               .toFixed(2)}
           </span>
         </div>
-        {user.userName === "" ? (
+        { address?.city?.toLowerCase() !== "mumbai" ? (
+          <p className="text-red-600 text-sm">
+            We are not delivering outside Mumbai
+          </p>
+        ) : user.userName === "" ? (
           <Link to="/login">
             <button className="px-4 py-2 mt-4 text-white bg-green-600 rounded-md">
               Login to checkout
@@ -108,9 +127,7 @@ const Cart = (): JSX.Element => {
           </Link>
         ) : (
           <button
-            onClick={() => {
-              if (user.userName !== "") handlePayment();
-            }}
+            onClick={() => handlePayments()}
             className="px-4 py-2 mt-4 text-white bg-green-600 rounded-md"
           >
             Checkout
